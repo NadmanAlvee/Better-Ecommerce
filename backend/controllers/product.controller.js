@@ -20,7 +20,7 @@ export const getAllProducts = async (req, res) => {
     res.json({ products });
   } catch (error) {
     console.log("Error in getAllProducts controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -34,7 +34,7 @@ export const getFeaturedProducts = async (req, res) => {
     // .lean() returns plain js object instead of mongo document, which is good for performance
     featuredProducts = await Product.find({ isFeatured: true }).lean();
     if (!featuredProducts) {
-      res.status(404).josn({ message: "No featured products found" });
+      res.status(404).json({ message: "No featured products found" });
     }
 
     // store in redis
@@ -46,7 +46,7 @@ export const getFeaturedProducts = async (req, res) => {
     res.json(featuredProducts);
   } catch (error) {
     console.log("Error in getFeaturedProducts controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -57,7 +57,7 @@ export const getProductsByCategory = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.log("Error in getProductsByCategory controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -81,7 +81,7 @@ export const getRecommendedProducts = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.log("Error in getRecommendedProducts controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -95,8 +95,6 @@ export const createProduct = async (req, res) => {
           folder: "products",
         })
       ).secure_url;
-      // debug
-      console.log(cloudinaryResponse);
     }
     const newProduct = await Product.create({
       name,
@@ -109,7 +107,7 @@ export const createProduct = async (req, res) => {
     res.json(201).json(newProduct);
   } catch (error) {
     console.log("Error in createProduct controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -127,7 +125,7 @@ export const toggleFeaturedProduct = async (req, res) => {
     res.json(updatedProduct);
   } catch (error) {
     console.log("Error in toggleFeaturedProduct controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -166,6 +164,6 @@ export const deleteProduct = async (req, res) => {
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log("Error in deleteProduct controller", error.message);
-    res.status(500).josn({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
